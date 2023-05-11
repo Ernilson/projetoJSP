@@ -61,8 +61,12 @@ public class CalculoHoraExtraDAO {
         try (java.sql.Connection con = conn.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-        	stmt.setString(1, horaEx.getEntrada());
-            stmt.setString(2, horaEx.getSaida());
+//        	stmt.setString(1, horaEx.getEntradaPrevista());
+//            stmt.setString(2, horaEx.getSaidaPrevista());
+            stmt.setString(1, horaEx.getEntradaRealizada());
+            stmt.setString(2, horaEx.getSaidaRealizada());
+//            stmt.setInt(5, horaEx.getHoraExtraEntrada());
+//            stmt.setInt(6, horaEx.getHoraExtraSaida());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

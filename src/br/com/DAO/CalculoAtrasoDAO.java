@@ -1,13 +1,21 @@
 package br.com.DAO;
 
 import br.com.Entity.CalculoAtraso;
+import br.com.Entity.MarcacoesFeitas;
+import br.com.Persistence.Conneciton;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalculoAtrasoDAO {
+	
+	private Conneciton conn;
     private List<CalculoAtraso> atrasos;
 
     public CalculoAtrasoDAO() {
+    	this.conn = new Conneciton();
         atrasos = new ArrayList<>();
     }
 
@@ -45,5 +53,20 @@ public class CalculoAtrasoDAO {
             }
         }
         return false;
+    }
+    
+    public void adicionarCalculoAtraso(CalculoAtraso atraso) {
+    	String sql = "INSERT INTO Atraso (entrada, saida) VALUES (?, ?)";
+
+        try (java.sql.Connection con = conn.conectar();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+        	stmt.setInt(1, atraso.getAtrasoEntrada());
+            stmt.setInt(2, atraso.getAtrasoSaida());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

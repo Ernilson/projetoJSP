@@ -9,8 +9,7 @@ public class TestesIntegration_HorarioDeTrabalho {
 		HorarioDeTrabalho ht = new HorarioDeTrabalho();
 		HoraDeTrabalhoDAO htDao = new HoraDeTrabalhoDAO();
 		
-		try {
-			
+		try {			
 			ht.setEntrada("09:00");
 			ht.setSaida("21:00");			
 			htDao.adicionarHorarioDeTrabalho(ht);
