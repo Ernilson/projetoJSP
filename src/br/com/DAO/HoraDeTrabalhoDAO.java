@@ -5,6 +5,7 @@ import br.com.Entity.MarcacoesFeitas;
 import br.com.Persistence.Conneciton;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +54,62 @@ public class HoraDeTrabalhoDAO {
             e.printStackTrace();
         }
     }
+    
+    public List<HorarioDeTrabalho> listarTodosHorariosDeTrabalho() {
+        String sql = "SELECT entrada, saida FROM HorarioTrabalho";
+        List<HorarioDeTrabalho> horarios = new ArrayList<>();
+
+        try (java.sql.Connection con = conn.conectar();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String entrada = rs.getString("entrada");
+                    String saida = rs.getString("saida");
+                    
+                    HorarioDeTrabalho horario = new HorarioDeTrabalho();
+                    horario.setEntrada(entrada);
+                    horario.setSaida(saida);
+
+                    horarios.add(horario);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return horarios; // Retorna a lista de horários
+    }
+
+    
+    public HorarioDeTrabalho listarHorarioDeTrabalhoPorId(int id) {
+        String sql = "SELECT entrada, saida FROM HorarioTrabalho WHERE id = ?";
+
+        try (java.sql.Connection con = conn.conectar();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String entrada = rs.getString("entrada");
+                    String saida = rs.getString("saida");
+                    
+                    HorarioDeTrabalho horario = new HorarioDeTrabalho();
+                    horario.setEntrada(entrada);
+                    horario.setSaida(saida);
+
+                    return horario;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Retorna null se nenhum HorarioDeTrabalho for encontrado com o ID fornecido
+    }
+
 }
 
