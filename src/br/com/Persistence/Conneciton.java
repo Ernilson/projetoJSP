@@ -2,6 +2,7 @@ package br.com.Persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Conneciton {
 	
@@ -25,13 +26,16 @@ public class Conneciton {
 		
 	}
 	
-	public void testeConexao() {
-		try {
-			Connection con = conectar();
-			System.out.println(con);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+	public void desconectar(Connection con) {
+	    try {
+	        if (con != null && !con.isClosed()) {
+	            con.close();
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e);
+	        e.getMessage();
+	    }
 	}
+
 
 }

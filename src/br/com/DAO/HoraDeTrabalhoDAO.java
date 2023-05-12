@@ -51,13 +51,16 @@ public class HoraDeTrabalhoDAO {
     }
     
     public void adicionarHorarioDeTrabalho(HorarioDeTrabalho horario) {
-    	String sql = "INSERT INTO HorarioTrabalho (entrada, saida) VALUES (?, ?)";
+    	String sql = "INSERT INTO HorarioTrabalho (cpf, entrada, inicio_Intervalo, fim_Intervalo, saida) VALUES (?, ?, ?, ?, ?)";
 
         try (java.sql.Connection con = conn.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
-
-        	stmt.setString(1, horario.getEntrada());
-            stmt.setString(2, horario.getSaida());
+        	
+        	stmt.setString(1, horario.getCpf());
+        	stmt.setString(2, horario.getEntrada());
+        	stmt.setString(3, horario.getIntervaloInicio());
+        	stmt.setString(4, horario.getIntervaloFim());
+            stmt.setString(5, horario.getSaida());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

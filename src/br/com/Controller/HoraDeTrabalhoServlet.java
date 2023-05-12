@@ -21,22 +21,10 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        
-        switch (action) {
-            case "add":
-			try {
-				adicionarHorario(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-                break;
-            case "remove":
-                removerHorario(request, response);
-                break;
-            default:
-                listarHorarios(request, response);
+    	try {
+            adicionarHorario(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
         }
     }
 
@@ -47,20 +35,27 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
         String intervaloInicio = request.getParameter("intervaloInicio");
         String intervaloFim = request.getParameter("intervaloFim");
         String saida = request.getParameter("saida");
-        HorarioDeTrabalho horario = new HorarioDeTrabalho();
-        horario.getCpf();
-        horario.getEntrada();
-        horario.getIntervaloInicio();
-        horario.getIntervaloFim();
-        horario.getSaida();
-        horaDeTrabalhoDAO.listarHorarioDeTrabalhoPorCpf(horario);
 
-        if (horario.equals(null)|| horario.equals("")) {
-        	 throw new Exception("Este Campo é deve ser preenchido");
+        if (cpf == null || cpf.isEmpty() ||
+            entrada == null || entrada.isEmpty() ||
+            intervaloInicio == null || intervaloInicio.isEmpty() ||
+            intervaloFim == null || intervaloFim.isEmpty() ||
+            saida == null || saida.isEmpty()) {
+        	 throw new Exception("Todos os campos devem ser preenchidos");
         }
-        
+
+        HorarioDeTrabalho horario = new HorarioDeTrabalho();
+        horario.setCpf(cpf);
+        horario.setEntrada(entrada);
+        horario.setIntervaloInicio(intervaloInicio);
+        horario.setIntervaloFim(intervaloFim);
+        horario.setSaida(saida);
+
+        horaDeTrabalhoDAO.adicionarHorarioDeTrabalho(horario);
+
         listarHorarios(request, response);
-    }
+}
+
 
     private void removerHorario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
