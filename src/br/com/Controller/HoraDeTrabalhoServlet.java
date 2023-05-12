@@ -2,6 +2,7 @@ package br.com.Controller;
 
 import br.com.DAO.HoraDeTrabalhoDAO;
 import br.com.Entity.HorarioDeTrabalho;
+
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/HoraDeTrabalhoServlet")
 public class HoraDeTrabalhoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
     private HoraDeTrabalhoDAO horaDeTrabalhoDAO;
 
     public void init() {
@@ -59,15 +61,39 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
     private void removerHorario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int index = Integer.parseInt(request.getParameter("index"));
-        horaDeTrabalhoDAO.removerHorario(index);
+       String cpf = request.getParameter("cpf");
+        horaDeTrabalhoDAO.removerHorarioDeTrabalho(cpf);
         listarHorarios(request, response);
     }
 
     private void listarHorarios(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarHorarios();
+        List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosHorariosDeTrabalho();
         request.setAttribute("horarios", horarios);
         request.getRequestDispatcher("listarHorarios.jsp").forward(request, response);
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        	//http://localhost:8080/seuServlet?action=list.
+        if (action != null) {
+            switch (action) {
+                case "delete":
+                    removerHorario(request, response);
+                    break;
+                case "list":
+                    listarHorarios(request, response);
+                    break;
+                
+                default:
+                    listarHorarios(request, response);
+                    break;
+            }
+        } else {
+            listarHorarios(request, response);
+        }
+    }
+
 }

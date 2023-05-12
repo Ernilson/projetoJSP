@@ -38,18 +38,6 @@ public class HoraDeTrabalhoDAO {
         }
     }
 
-    public boolean removerHorario(int index) {
-        if (index >= 0 && index < horarios.size()) {
-            horarios.remove(index);
-            return true;
-        }
-        return false;
-    }
-
-    public List<HorarioDeTrabalho> listarHorarios() {
-        return horarios;
-    }
-    
     public void adicionarHorarioDeTrabalho(HorarioDeTrabalho horario) {
     	String sql = "INSERT INTO HorarioTrabalho (cpf, entrada, inicio_Intervalo, fim_Intervalo, saida) VALUES (?, ?, ?, ?, ?)";
 
@@ -69,7 +57,7 @@ public class HoraDeTrabalhoDAO {
     }
     
     public List<HorarioDeTrabalho> listarTodosHorariosDeTrabalho() {
-        String sql = "SELECT entrada, saida FROM HorarioTrabalho";
+        String sql = "SELECT * FROM HorarioTrabalho";
         List<HorarioDeTrabalho> horarios = new ArrayList<>();
 
         try (java.sql.Connection con = conn.conectar();
@@ -77,11 +65,17 @@ public class HoraDeTrabalhoDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+                    String cpf = rs.getString("cpf");
                     String entrada = rs.getString("entrada");
+                    String inicio_Intervalo = rs.getString("inicio_Intervalo");
+                    String fim_Intervalo = rs.getString("fim_Intervalo");
                     String saida = rs.getString("saida");
                     
                     HorarioDeTrabalho horario = new HorarioDeTrabalho();
+                    horario.setCpf(cpf);
                     horario.setEntrada(entrada);
+                    horario.setIntervaloInicio(inicio_Intervalo);
+                    horario.setIntervaloFim(fim_Intervalo);
                     horario.setSaida(saida);
 
                     horarios.add(horario);
@@ -130,6 +124,21 @@ public class HoraDeTrabalhoDAO {
 
         return null; // Retorna null se nenhum HorarioDeTrabalho for encontrado com o cpf fornecido
     }
+    
+    public void removerHorarioDeTrabalho(String cpf) {
+        String sql = "DELETE FROM HorarioTrabalho WHERE cpf = ?";
+
+        try (java.sql.Connection con = conn.conectar();
+            PreparedStatement stmt = con.prepareStatement(sql)) {
+        	
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
