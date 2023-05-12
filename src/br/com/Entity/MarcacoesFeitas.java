@@ -4,36 +4,58 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MarcacoesFeitas implements Serializable{
+public class MarcacoesFeitas implements Serializable{	
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
+	private String cpf;
 	private String entrada;
     private String saida;
     
-    public MarcacoesFeitas(String entrada, String saida) {
-        this.entrada = entrada;
-        this.saida = saida;
-    }
+   public MarcacoesFeitas() {
+	// TODO Auto-generated constructor stub
+}   
     
-    public MarcacoesFeitas() {
-		// TODO Auto-generated constructor stub
-	}
+public MarcacoesFeitas(Long id, String cpf, String entrada, String saida) {
+	super();
+	this.id = id;
+	this.cpf = cpf;
+	this.entrada = entrada;
+	this.saida = saida;
+}
 
-    public String getEntrada() {
-        return entrada;
-    }
+public Long getId() {
+	return id;
+}
 
-    public void setEntrada(String entrada) {
-        this.entrada = entrada;
-    }
+public void setId(Long id) {
+	this.id = id;
+}
 
-    public String getSaida() {
-        return saida;
-    }
+public String getCpf() {
+	return cpf;
+}
 
-    public void setSaida(String saida) {
-        this.saida = saida;
-    }
+public void setCpf(String cpf) {
+	this.cpf = cpf;
+}
+
+public String getEntrada() {
+	return entrada;
+}
+
+public void setEntrada(String entrada) {
+	this.entrada = entrada;
+}
+
+public String getSaida() {
+	return saida;
+}
+
+public void setSaida(String saida) {
+	this.saida = saida;
+}
+
 }
 
 class MarcacoesFeitasList {

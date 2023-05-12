@@ -20,12 +20,22 @@ public class HoraDeTrabalhoDAO {
         horarios = new ArrayList<>(3);
     }
 
-    public boolean adicionarHorario(HorarioDeTrabalho horario) {
-        if (horarios.size() < 3) {
-            horarios.add(horario);
-            return true;
+    public void adicionarHorario(HorarioDeTrabalho horario) {
+        String sql = "INSERT INTO HorarioTrabalho (cpf, entrada, inicio_Intervalo, fim_Intervalo, saida) VALUES (?, ?, ?, ?, ?)";
+
+        try (java.sql.Connection con = conn.conectar();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, horario.getCpf());
+            stmt.setString(2, horario.getEntrada());
+            stmt.setString(3, horario.getIntervaloInicio());
+            stmt.setString(4, horario.getIntervaloFim());
+            stmt.setString(5, horario.getSaida());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false;
     }
 
     public boolean removerHorario(int index) {
@@ -83,21 +93,28 @@ public class HoraDeTrabalhoDAO {
     }
 
     
-    public HorarioDeTrabalho listarHorarioDeTrabalhoPorId(int id) {
-        String sql = "SELECT entrada, saida FROM HorarioTrabalho WHERE id = ?";
+    public HorarioDeTrabalho listarHorarioDeTrabalhoPorCpf(HorarioDeTrabalho cpf) {
+        String sql = "SELECT cpf, entrada, inicio_Intervalo, fim_Intervalo, saida FROM HorarioTrabalho WHERE cpf = ?";
 
         try (java.sql.Connection con = conn.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setInt(1, id);
+            stmt.setObject(1, cpf.getCpf());            
 
             try (ResultSet rs = stmt.executeQuery()) {
+
                 if (rs.next()) {
+                	String  cpfResult = rs.getString("cpf");
                     String entrada = rs.getString("entrada");
+                    String inicio_Intervalo = rs.getString("inicio_Intervalo");
+                    String fim_Intervalo = rs.getString("fim_Intervalo");
                     String saida = rs.getString("saida");
-                    
+
                     HorarioDeTrabalho horario = new HorarioDeTrabalho();
+                    horario.setCpf(cpfResult);
                     horario.setEntrada(entrada);
+                    horario.setIntervaloInicio(inicio_Intervalo);
+                    horario.setIntervaloFim(fim_Intervalo);
                     horario.setSaida(saida);
 
                     return horario;
@@ -108,7 +125,7 @@ public class HoraDeTrabalhoDAO {
             e.printStackTrace();
         }
 
-        return null; // Retorna null se nenhum HorarioDeTrabalho for encontrado com o ID fornecido
+        return null; // Retorna null se nenhum HorarioDeTrabalho for encontrado com o cpf fornecido
     }
 
 }

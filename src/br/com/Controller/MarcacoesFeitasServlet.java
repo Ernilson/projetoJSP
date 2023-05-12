@@ -42,7 +42,7 @@ public class MarcacoesFeitasServlet extends HttpServlet {
             throws ServletException, IOException {
         String entrada = request.getParameter("entrada");
         String saida = request.getParameter("saida");
-        MarcacoesFeitas marcacao = new MarcacoesFeitas(entrada, saida);
+        MarcacoesFeitas marcacao = new MarcacoesFeitas();
         marcacoesFeitasDAO.adicionarMarcacao(marcacao);
         listarMarcacoes(request, response);
     }
@@ -59,7 +59,7 @@ public class MarcacoesFeitasServlet extends HttpServlet {
         int index = Integer.parseInt(request.getParameter("index"));
         String entrada = request.getParameter("entrada");
         String saida = request.getParameter("saida");
-        MarcacoesFeitas marcacaoAtualizada = new MarcacoesFeitas(entrada, saida);
+        MarcacoesFeitas marcacaoAtualizada = new MarcacoesFeitas();
         marcacoesFeitasDAO.atualizarMarcacao(index, marcacaoAtualizada);
         listarMarcacoes(request, response);
     }

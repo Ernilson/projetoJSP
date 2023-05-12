@@ -6,26 +6,18 @@
 <body>
 
 <h2>Horário de Trabalho</h2>
-<form method="POST">
+<form method="POST" action="HoraDeTrabalhoServlet">
+    <input type="hidden" name="action" value="add">
+    <label> CPF: <input type="text" name="cpf" required></label>
     Entrada: <input type="text" name="entrada" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required> 
+    Inicio do Intervalo: <input type="text" name="intervaloInicio" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required>
+    Fim do Intervalo: <input type="text" name="intervaloFim" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required>  
     Saída: <input type="text" name="saida" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required> 
     <input type="submit" value="Cadastrar">
 </form>
+
 <!-- Aqui você poderia listar os horários de trabalho cadastrados -->
 
-<h2>Marcações Feitas</h2>
-<form method="POST">
-    Entrada: <input type="text" name="entradaMarcacao" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required> 
-    Saída: <input type="text" name="saidaMarcacao" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required> 
-    <input type="submit" value="Cadastrar">
-</form>
-<!-- Aqui você poderia listar as marcações feitas -->
-
-<h2>Atrasos</h2>
-<!-- Aqui você poderia listar os atrasos -->
-
-<h2>Hora Extra</h2>
-<!-- Aqui você poderia listar as horas extras -->
 
 </body>
 </html>

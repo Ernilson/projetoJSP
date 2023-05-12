@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalculoAtraso {
+	private Long id;
+	private String cpf;
     private String data;
     private String entradaPrevista;
     private String entradaRealizada;
@@ -12,75 +14,96 @@ public class CalculoAtraso {
     private int atrasoEntrada;
     private int atrasoSaida;
 
-    public CalculoAtraso(String data, String entradaPrevista, String entradaRealizada, String saidaPrevista, String saidaRealizada, int atrasoEntrada, int atrasoSaida) {
-        this.data = data;
-        this.entradaPrevista = entradaPrevista;
-        this.entradaRealizada = entradaRealizada;
-        this.saidaPrevista = saidaPrevista;
-        this.saidaRealizada = saidaRealizada;
-        this.atrasoEntrada = atrasoEntrada;
-        this.atrasoSaida = atrasoSaida;
-    }
-    
-    public CalculoAtraso() {
-		// TODO Auto-generated constructor stub
+   public CalculoAtraso() {
+	// TODO Auto-generated constructor stub
+}
+   
+	public CalculoAtraso(Long id, String cpf, String data, String entradaPrevista, String entradaRealizada,
+		String saidaPrevista, String saidaRealizada, int atrasoEntrada, int atrasoSaida) {
+	super();
+	this.id = id;
+	this.cpf = cpf;
+	this.data = data;
+	this.entradaPrevista = entradaPrevista;
+	this.entradaRealizada = entradaRealizada;
+	this.saidaPrevista = saidaPrevista;
+	this.saidaRealizada = saidaRealizada;
+	this.atrasoEntrada = atrasoEntrada;
+	this.atrasoSaida = atrasoSaida;
+}
+
+	public Long getId() {
+		return id;
 	}
 
-    public String getData() {
-        return data;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setData(String data) {
-        this.data = data;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public String getEntradaPrevista() {
-        return entradaPrevista;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public void setEntradaPrevista(String entradaPrevista) {
-        this.entradaPrevista = entradaPrevista;
-    }
+	public String getData() {
+		return data;
+	}
 
-    public String getEntradaRealizada() {
-        return entradaRealizada;
-    }
+	public void setData(String data) {
+		this.data = data;
+	}
 
-    public void setEntradaRealizada(String entradaRealizada) {
-        this.entradaRealizada = entradaRealizada;
-    }
+	public String getEntradaPrevista() {
+		return entradaPrevista;
+	}
 
-    public String getSaidaPrevista() {
-        return saidaPrevista;
-    }
+	public void setEntradaPrevista(String entradaPrevista) {
+		this.entradaPrevista = entradaPrevista;
+	}
 
-    public void setSaidaPrevista(String saidaPrevista) {
-        this.saidaPrevista = saidaPrevista;
-    }
+	public String getEntradaRealizada() {
+		return entradaRealizada;
+	}
 
-    public String getSaidaRealizada() {
-        return saidaRealizada;
-    }
+	public void setEntradaRealizada(String entradaRealizada) {
+		this.entradaRealizada = entradaRealizada;
+	}
 
-    public void setSaidaRealizada(String saidaRealizada) {
-        this.saidaRealizada = saidaRealizada;
-    }
+	public String getSaidaPrevista() {
+		return saidaPrevista;
+	}
 
-    public int getAtrasoEntrada() {
-        return atrasoEntrada;
-    }
+	public void setSaidaPrevista(String saidaPrevista) {
+		this.saidaPrevista = saidaPrevista;
+	}
 
-    public void setAtrasoEntrada(int atrasoEntrada) {
-        this.atrasoEntrada = atrasoEntrada;
-    }
+	public String getSaidaRealizada() {
+		return saidaRealizada;
+	}
 
-    public int getAtrasoSaida() {
-        return atrasoSaida;
-    }
+	public void setSaidaRealizada(String saidaRealizada) {
+		this.saidaRealizada = saidaRealizada;
+	}
 
-    public void setAtrasoSaida(int atrasoSaida) {
-        this.atrasoSaida = atrasoSaida;
-    }
+	public int getAtrasoEntrada() {
+		return atrasoEntrada;
+	}
+
+	public void setAtrasoEntrada(int atrasoEntrada) {
+		this.atrasoEntrada = atrasoEntrada;
+	}
+
+	public int getAtrasoSaida() {
+		return atrasoSaida;
+	}
+
+	public void setAtrasoSaida(int atrasoSaida) {
+		this.atrasoSaida = atrasoSaida;
+	}
+
 }
 
 class CalculoAtrasoList {

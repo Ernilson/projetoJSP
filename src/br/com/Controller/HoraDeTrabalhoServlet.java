@@ -25,7 +25,12 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
         
         switch (action) {
             case "add":
-                adicionarHorario(request, response);
+			try {
+				adicionarHorario(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
                 break;
             case "remove":
                 removerHorario(request, response);
@@ -36,14 +41,22 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
     }
 
     private void adicionarHorario(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws Exception {
+    	String cpf = request.getParameter("cpf");
         String entrada = request.getParameter("entrada");
+        String intervaloInicio = request.getParameter("intervaloInicio");
+        String intervaloFim = request.getParameter("intervaloFim");
         String saida = request.getParameter("saida");
-        HorarioDeTrabalho horario = new HorarioDeTrabalho(entrada, saida);
-        boolean adicionado = horaDeTrabalhoDAO.adicionarHorario(horario);
+        HorarioDeTrabalho horario = new HorarioDeTrabalho();
+        horario.getCpf();
+        horario.getEntrada();
+        horario.getIntervaloInicio();
+        horario.getIntervaloFim();
+        horario.getSaida();
+        horaDeTrabalhoDAO.listarHorarioDeTrabalhoPorCpf(horario);
 
-        if (!adicionado) {
-            // Ação a ser executada quando não é possível adicionar um novo horário.
+        if (horario.equals(null)|| horario.equals("")) {
+        	 throw new Exception("Este Campo é deve ser preenchido");
         }
         
         listarHorarios(request, response);
