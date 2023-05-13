@@ -25,17 +25,17 @@ public class TestesIntegration_HorarioDeTrabalho {
 		
 		//---------------------------------------Metodo para Listar todos os registros-----------------------------------------------------
 		
-		try {
-			List<HorarioDeTrabalho> horarios = htDao.listarTodosHorariosDeTrabalho();
-
-			for (HorarioDeTrabalho hts : horarios) {
-				System.out.println("CPF: " + ht.getCpf() + "Entrada: " + ht.getEntrada() + ", Saída: " + hts.getSaida() + 
-						", IntervaloInicio: " + hts.getIntervaloInicio() + ", IntervaloFim: " + hts.getIntervaloFim());
-			}
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+//		try {
+//			List<HorarioDeTrabalho> horarios = htDao.listarTodosHorariosDeTrabalho();
+//
+//			for (HorarioDeTrabalho hts : horarios) {
+//				System.out.println("CPF: " + ht.getCpf() + "Entrada: " + ht.getEntrada() + ", Saída: " + hts.getSaida() + 
+//						", IntervaloInicio: " + hts.getIntervaloInicio() + ", IntervaloFim: " + hts.getIntervaloFim());
+//			}
+//
+//		} catch (Exception e) {
+//			System.out.println(e);
+//		}
 		
 		//---------------------------------------Metodo para apagar o registros pelo cpf-----------------------------------------------------
 		

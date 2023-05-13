@@ -15,9 +15,27 @@
     Saída: <input type="text" name="saida" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5" required> 
     <input type="submit" value="Cadastrar">
 </form>
-
-<!-- Aqui você poderia listar os horários de trabalho cadastrados -->
-
+ <h1>Horários de Trabalho</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Entrada</th>
+                <th>Intervalo (Início)</th>
+                <th>Intervalo (Fim)</th>
+                <th>Saída</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="horario" items="${horarios}">
+                <tr>
+                    <td>${horario.entrada}</td>
+                    <td>${horario.intervaloInicio}</td>
+                    <td>${horario.intervaloFim}</td>
+                    <td>${horario.saida}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
 </body>
 </html>

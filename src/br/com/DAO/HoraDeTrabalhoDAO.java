@@ -1,7 +1,6 @@
 package br.com.DAO;
 
 import br.com.Entity.HorarioDeTrabalho;
-import br.com.Entity.MarcacoesFeitas;
 import br.com.Persistence.Conneciton;
 
 import java.sql.PreparedStatement;
@@ -86,7 +85,7 @@ public class HoraDeTrabalhoDAO {
             e.printStackTrace();
         }
 
-        return horarios; // Retorna a lista de horários
+        return horarios; 
     }
 
     

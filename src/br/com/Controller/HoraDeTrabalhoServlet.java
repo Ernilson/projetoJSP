@@ -70,14 +70,14 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
             throws ServletException, IOException {
         List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosHorariosDeTrabalho();
         request.setAttribute("horarios", horarios);
-        request.getRequestDispatcher("listarHorarios.jsp").forward(request, response);
+        request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        	//http://localhost:8080/seuServlet?action=list.
+        	//http://localhost:8080/RegisterPoint/HoraDeTrabalhoServlet?action=list
         if (action != null) {
             switch (action) {
                 case "delete":
