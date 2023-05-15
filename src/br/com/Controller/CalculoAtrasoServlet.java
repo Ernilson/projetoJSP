@@ -1,7 +1,10 @@
 package br.com.Controller;
 
 import br.com.DAO.CalculoAtrasoDAO;
+import br.com.DAO.HoraDeTrabalhoDAO;
 import br.com.Entity.CalculoAtraso;
+import br.com.Entity.HorarioDeTrabalho;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -16,15 +19,17 @@ public class CalculoAtrasoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private CalculoAtrasoDAO calculoAtrasoDAO;
+    private HoraDeTrabalhoDAO horaDeTrabalhoDAO;
    
     public void init() {
         calculoAtrasoDAO = new CalculoAtrasoDAO();
+        horaDeTrabalhoDAO = new HoraDeTrabalhoDAO();
         atraso();
     }
     
     private void atraso() {
-      	 List<CalculoAtraso> at = calculoAtrasoDAO.listarTodosCalculoAtraso();
-      	 getServletContext().setAttribute("at", at);
+      	 List<CalculoAtraso> atraso = calculoAtrasoDAO.listarTodosCalculoAtraso();
+      	 getServletContext().setAttribute("atraso", atraso);
       }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,6 +49,16 @@ public class CalculoAtrasoServlet extends HttpServlet {
         request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
     }
     
+    private void listarHorarios(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String cpf = request.getParameter("cpf");
+        List<HorarioDeTrabalho> horarios = (List<HorarioDeTrabalho>) horaDeTrabalhoDAO.buscarHorarioDeTrabalhoPorCpf(cpf);
+        request.setAttribute("horarios", horarios);
+        request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
+    }
+
+
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -56,6 +71,9 @@ public class CalculoAtrasoServlet extends HttpServlet {
                     break;
                 case "lista":
                 	listarAtrasos(request, response);
+                    break;
+                case "buscarPorCpf":
+                  //  buscarAtrasoPorCpf(request, response);
                     break;
                 
                 default:

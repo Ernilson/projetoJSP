@@ -110,20 +110,21 @@
 
 	<h2 class="comMargem">Atrasos</h2>
 <!-- Lista dos atrasos -->
-<table class="horarios">
+<table class="atraso">
     <thead>
         <tr>
             <th>Atraso</th>
         </tr>
     </thead>
     <tbody>
-        <c:forEach var="ats" items="${at}">
-          <tr>
-          			<td>${ats.cpf}</td>	
-					<td>${ats.entrada}</td>					
-					<td>${ats.saida}</td>
-				</tr>
-        </c:forEach>
+       <c:if test="${not empty atraso}">
+    <tr>
+        <td>${atraso.cpf}</td>
+        <td>${atraso.entrada}</td>
+        <td>${atraso.saida}</td>
+    </tr>
+</c:if>
+
     </tbody>
 </table>
 <div class="clear"></div>

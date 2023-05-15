@@ -149,7 +149,7 @@ public class CalculoAtrasoDAO {
 	        return horarios; 
 	    }
 
-
+	    //busca por cpf
 	    public CalculoAtraso buscarCalculoAtrasoPorCpf(String cpf) {
 	        String sql = "SELECT cpf, entrada, saida FROM atraso WHERE cpf = ?";
 
