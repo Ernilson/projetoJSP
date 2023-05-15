@@ -12,7 +12,7 @@ import br.com.Persistence.Conneciton;
 
 public class MarcacoesFeitasDAO {
 
-	private Conneciton conn;
+	private static Conneciton conn;
     private List<MarcacoesFeitas> marcacoesFeitasList;
 
     public MarcacoesFeitasDAO() {
@@ -71,13 +71,13 @@ public class MarcacoesFeitasDAO {
         return horarios; 
     }
     
-    public MarcacoesFeitas listarMarcacoesFeitasPorCpf(MarcacoesFeitas cpf) {
-        String sql = "SELECT cpf, entrada, inicio_Intervalo, fim_Intervalo, saida FROM HorarioTrabalho WHERE cpf = ?";
+    public MarcacoesFeitas buscarMarcacoesFeitasPorCpf(String cpf) {
+        String sql = "SELECT cpf, entrada, inicio_Intervalo, fim_Intervalo, saida FROM MarcacoesFeitas WHERE cpf = ?";
 
         try (java.sql.Connection con = conn.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setObject(1, cpf.getCpf());            
+            stmt.setString(1, cpf);            
 
             try (ResultSet rs = stmt.executeQuery()) {
 

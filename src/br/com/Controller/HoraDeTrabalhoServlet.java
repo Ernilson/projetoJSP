@@ -1,15 +1,21 @@
 package br.com.Controller;
 
-import br.com.DAO.HoraDeTrabalhoDAO;
-import br.com.Entity.HorarioDeTrabalho;
-
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.com.DAO.CalculoAtrasoDAO;
+import br.com.DAO.HoraDeTrabalhoDAO;
+import br.com.DAO.MarcacoesFeitasDAO;
+import br.com.Entity.HorarioDeTrabalho;
+import br.com.Entity.MarcacoesFeitas;
 
 @WebServlet("/HoraDeTrabalhoServlet")
 public class HoraDeTrabalhoServlet extends HttpServlet {
@@ -19,8 +25,14 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
     public void init() {
         horaDeTrabalhoDAO = new HoraDeTrabalhoDAO();
+        horaDeTrabalho();
     }
 
+    private void horaDeTrabalho() {
+   	 List<HorarioDeTrabalho> hdt = horaDeTrabalhoDAO.listarTodosHorariosDeTrabalho();
+   	 getServletContext().setAttribute("hdt", hdt);
+   }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	try {
@@ -38,13 +50,13 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
         String intervaloFim = request.getParameter("intervaloFim");
         String saida = request.getParameter("saida");
 
-        if (cpf == null || cpf.isEmpty() ||
-            entrada == null || entrada.isEmpty() ||
-            intervaloInicio == null || intervaloInicio.isEmpty() ||
-            intervaloFim == null || intervaloFim.isEmpty() ||
-            saida == null || saida.isEmpty()) {
-        	 throw new Exception("Todos os campos devem ser preenchidos");
-        }
+//        if (cpf == null || cpf.isEmpty() ||
+//            entrada == null || entrada.isEmpty() ||
+//            intervaloInicio == null || intervaloInicio.isEmpty() ||
+//            intervaloFim == null || intervaloFim.isEmpty() ||
+//            saida == null || saida.isEmpty()) {
+//        	 throw new Exception("Todos os campos devem ser preenchidos");
+        //}
 
         HorarioDeTrabalho horario = new HorarioDeTrabalho();
         horario.setCpf(cpf);
@@ -57,7 +69,6 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
         listarHorarios(request, response);
 }
-
 
     private void removerHorario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -81,9 +92,9 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
         if (action != null) {
             switch (action) {
                 case "delete":
-                    removerHorario(request, response);
+              //      removerHorario(request, response);
                     break;
-                case "list":
+                case "lista":
                     listarHorarios(request, response);
                     break;
                 

@@ -1,5 +1,7 @@
 package TestesIntegracao;
 
+import java.util.List;
+
 import br.com.DAO.CalculoAtrasoDAO;
 import br.com.Entity.CalculoAtraso;
 
@@ -9,16 +11,10 @@ public class TestesIntegration_Atraso {
 		CalculoAtraso cca = new CalculoAtraso();
 		CalculoAtrasoDAO ccaDao = new CalculoAtrasoDAO();
 		
-		try {
-			cca.setAtrasoEntrada(10);
-			cca.setAtrasoSaida(0);
-			
-			ccaDao.adicionarCalculoAtraso(cca);
+		List<CalculoAtraso> horario = ccaDao.listarTodosCalculoAtraso();
 
-		} catch (Exception e) {
-			System.out.println(e);
+		for (CalculoAtraso mfs : horario) {
+			System.out.println("CPF : " + mfs.getCpf() + "Entrada: " + mfs.getEntrada() + ", Sa�da: " + mfs.getSaida()); 
 		}
-		
 	}
-
 }

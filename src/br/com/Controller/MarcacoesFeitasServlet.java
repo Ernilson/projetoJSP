@@ -1,9 +1,15 @@
 package br.com.Controller;
 
+import br.com.DAO.CalculoAtrasoDAO;
+import br.com.DAO.HoraDeTrabalhoDAO;
 import br.com.DAO.MarcacoesFeitasDAO;
+import br.com.Entity.HorarioDeTrabalho;
 import br.com.Entity.MarcacoesFeitas;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +21,17 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     private MarcacoesFeitasDAO marcacoesFeitasDAO;
-
+    private HoraDeTrabalhoDAO horaDeTrabalhoDAO;
     public void init() {
         marcacoesFeitasDAO = new MarcacoesFeitasDAO();
+        horaDeTrabalhoDAO = new HoraDeTrabalhoDAO();
+        listarMarcacoes();
+    }
+    
+ // Para que as marcações sejam inicilizados ao abrir a tela
+    private void listarMarcacoes() {
+    	 List<MarcacoesFeitas> marcacoes = marcacoesFeitasDAO.listarTodasMarcacoesFeitas();
+    	 getServletContext().setAttribute("marcacoes", marcacoes);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,13 +52,13 @@ public class MarcacoesFeitasServlet extends HttpServlet {
         String intervaloFim = request.getParameter("intervaloFim");
         String saida = request.getParameter("saida");
 
-        if (cpf == null || cpf.isEmpty() ||
-            entrada == null || entrada.isEmpty() ||
-            intervaloInicio == null || intervaloInicio.isEmpty() ||
-            intervaloFim == null || intervaloFim.isEmpty() ||
-            saida == null || saida.isEmpty()) {
-        	 throw new Exception("Todos os campos devem ser preenchidos");
-        }
+//        if (cpf == null || cpf.isEmpty() ||
+//            entrada == null || entrada.isEmpty() ||
+//            intervaloInicio == null || intervaloInicio.isEmpty() ||
+//            intervaloFim == null || intervaloFim.isEmpty() ||
+//            saida == null || saida.isEmpty()) {
+//        	 throw new Exception("Todos os campos devem ser preenchidos");
+//        }
 
         MarcacoesFeitas horario = new MarcacoesFeitas();
         horario.setCpf(cpf);
@@ -60,16 +74,15 @@ public class MarcacoesFeitasServlet extends HttpServlet {
 
     private void removerMarcacao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // int index = Integer.parseInt(request.getParameter("index"));
-    	String cpf = request.getParameter("cpf");
+      	String cpf = request.getParameter("cpf");
         marcacoesFeitasDAO.removerMarcacoesFeitas(cpf);
         listarMarcacoes(request, response);
     }
 
     private void listarMarcacoes(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<MarcacoesFeitas> horarios = marcacoesFeitasDAO.listarTodasMarcacoesFeitas();
-        request.setAttribute("horarios", horarios);
+        List<MarcacoesFeitas> marcacoes = marcacoesFeitasDAO.listarTodasMarcacoesFeitas();
+        request.setAttribute("marcacoes", marcacoes);
         request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
     }
     

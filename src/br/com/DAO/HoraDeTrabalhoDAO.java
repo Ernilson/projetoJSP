@@ -1,6 +1,7 @@
 package br.com.DAO;
 
 import br.com.Entity.HorarioDeTrabalho;
+import br.com.Entity.MarcacoesFeitas;
 import br.com.Persistence.Conneciton;
 
 import java.sql.PreparedStatement;
@@ -17,24 +18,6 @@ public class HoraDeTrabalhoDAO {
     public HoraDeTrabalhoDAO() {
     	this.conn = new Conneciton();
         horarios = new ArrayList<>(3);
-    }
-
-    public void adicionarHorario(HorarioDeTrabalho horario) {
-        String sql = "INSERT INTO HorarioTrabalho (cpf, entrada, inicio_Intervalo, fim_Intervalo, saida) VALUES (?, ?, ?, ?, ?)";
-
-        try (java.sql.Connection con = conn.conectar();
-             PreparedStatement stmt = con.prepareStatement(sql)) {
-
-            stmt.setString(1, horario.getCpf());
-            stmt.setString(2, horario.getEntrada());
-            stmt.setString(3, horario.getIntervaloInicio());
-            stmt.setString(4, horario.getIntervaloFim());
-            stmt.setString(5, horario.getSaida());
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void adicionarHorarioDeTrabalho(HorarioDeTrabalho horario) {
@@ -84,18 +67,17 @@ public class HoraDeTrabalhoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return horarios; 
     }
 
     
-    public HorarioDeTrabalho listarHorarioDeTrabalhoPorCpf(HorarioDeTrabalho cpf) {
+    public HorarioDeTrabalho buscarHorarioDeTrabalhoPorCpf(String cpf) {
         String sql = "SELECT cpf, entrada, inicio_Intervalo, fim_Intervalo, saida FROM HorarioTrabalho WHERE cpf = ?";
 
         try (java.sql.Connection con = conn.conectar();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setObject(1, cpf.getCpf());            
+            stmt.setString(1, cpf);            
 
             try (ResultSet rs = stmt.executeQuery()) {
 
@@ -121,8 +103,9 @@ public class HoraDeTrabalhoDAO {
             e.printStackTrace();
         }
 
-        return null; // Retorna null se nenhum HorarioDeTrabalho for encontrado com o cpf fornecido
+        return null; 
     }
+
     
     public void removerHorarioDeTrabalho(String cpf) {
         String sql = "DELETE FROM HorarioTrabalho WHERE cpf = ?";

@@ -11,18 +11,18 @@ public class TestesIntegration_MarcacoesFeitas {
 		
 		MarcacoesFeitas mf = new MarcacoesFeitas();
 		MarcacoesFeitasDAO mfdao = new MarcacoesFeitasDAO();
-//		try {
-//			mf.setCpf("6977984031");
-//			mf.setEntrada("08:00");
-//			mf.setIntervaloInicio("12:15");
-//			mf.setIntervaloFim("13:20");
-//			mf.setSaida("16:00");	
-//			
-//			mfdao.adicionarMarcacao(mf);
-//			
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
+		try {
+			mf.setCpf("6977984031");
+			mf.setEntrada("08:45");
+			mf.setIntervaloInicio("12:15");
+			mf.setIntervaloFim("13:20");
+			mf.setSaida("17:00");	
+			
+			mfdao.adicionarMarcacao(mf);
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		
 //---------------------------------------Metodo para Listar todos os registros-----------------------------------------------------
 		
